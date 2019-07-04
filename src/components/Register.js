@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import { Link } from 'react-router-dom';
 
 class RegistrationForm extends React.Component {
   state = {
@@ -103,6 +104,9 @@ class RegistrationForm extends React.Component {
           <Button type="primary" htmlType="submit">
             Register
           </Button>
+          <p>
+            I already have an accout, go back to <Link to="/login">login</Link>
+          </p>
         </Form.Item>
       </Form>
     );
