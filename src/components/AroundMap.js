@@ -3,8 +3,8 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker,
 } from "react-google-maps";
+import { AroundMarker } from './AroundMarker';
 
 class NormalAroundMap extends React.Component {
   render() {
@@ -13,12 +13,8 @@ class NormalAroundMap extends React.Component {
         defaultZoom={11}
         defaultCenter={{ lat: -34.397, lng: 150.644 }}
       >
-        <Marker
-          position={{ lat: -34.397, lng: 150.644 }}
-        />
-        <Marker
-          position={{ lat: -34.377, lng: 150.664 }}
-        />
+        <AroundMarker position={{ lat: -34.397, lng: 150.644 }}/>
+        <AroundMarker position={{ lat: -34.497, lng: 150.544 }}/>
       </GoogleMap>
     );
   }
