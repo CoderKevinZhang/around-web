@@ -4,27 +4,32 @@ import PropTypes from 'prop-types';
 
 export class AroundMarker extends React.Component {
   static propTypes = {
-    position: PropTypes.object.isRequired,
+    post: PropTypes.object.isRequired,
   }
 
   state = {
     isOpen: false,
   }
 
-  handleMarkerClick = () => {
+  handleToggle = () => {
     this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
   }
 
   render() {
-    const { position } = this.props;
+    const { user, message, url, location } = this.props.post;
+    const { lat, lon } = location;
     return (
       <Marker
-        position={position}
-        onClick={this.handleMarkerClick}
+        position={{ lat, lng: lon }}
+        onMouseOver={this.handleToggle}
+        onMouseOut={this.handleToggle}
       >
         {this.state.isOpen ? (
           <InfoWindow>
-            <div>say something!</div>
+            <div>
+              <img src={url} alt={message} className="around-marker-image"/>
+              <p>{`${user}: ${message}`}</p>
+            </div>
           </InfoWindow>
         ) : null}
       </Marker>
