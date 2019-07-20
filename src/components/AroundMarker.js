@@ -1,6 +1,7 @@
 import React from 'react';
 import { Marker, InfoWindow } from 'react-google-maps';
 import PropTypes from 'prop-types';
+import blueMarkerUrl from '../assets/images/blue-marker.svg';
 
 export class AroundMarker extends React.Component {
   static propTypes = {
@@ -16,18 +17,27 @@ export class AroundMarker extends React.Component {
   }
 
   render() {
-    const { user, message, url, location } = this.props.post;
+    const { user, message, url, location, type } = this.props.post;
     const { lat, lon } = location;
+    const isImagePost = type === 'image';
+    const customIcon = isImagePost ? undefined : {
+      url: blueMarkerUrl,
+      scaledSize: new window.google.maps.Size(26, 41),
+    };
     return (
       <Marker
         position={{ lat, lng: lon }}
-        onMouseOver={this.handleToggle}
-        onMouseOut={this.handleToggle}
+        onMouseOver={isImagePost ? this.handleToggle : undefined}
+        onMouseOut={isImagePost ? this.handleToggle : undefined}
+        onClick={isImagePost ? undefined: this.handleToggle}
+        icon={customIcon}
       >
         {this.state.isOpen ? (
           <InfoWindow>
             <div>
-              <img src={url} alt={message} className="around-marker-image"/>
+              {isImagePost
+                ? <img src={url} alt={message} className="around-marker-image"/>
+                : <video src={url} controls className="around-marker-video"/>}
               <p>{`${user}: ${message}`}</p>
             </div>
           </InfoWindow>
